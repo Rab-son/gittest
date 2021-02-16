@@ -1,7 +1,7 @@
 // importing libraries
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose'); 
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose"); 
 
 
 //creating an express application
@@ -9,20 +9,20 @@ const app = express();
 const PORT = 8000;
 
 //models
-const user = require('./model/user');
+const user = require("./model/user");
 
 
 //MongoDB Connection
-const database_url =  'mongodb://127.0.0.1:27017/ussd'
+const database_url =  "mongodb://127.0.0.1:27017/ussd"
 mongoose.connect(database_url);
 const db = mongoose.connection;
 
 //Checking Database Connection
-db.on('error', (err)=>{
+db.on("error", (err)=>{
     console.log(err)
 })
-db.once('open',()=>{
-    console.log('Database is running')
+db.once("open",()=>{
+    console.log("Database is running")
 })
 
 //Body Parser
@@ -30,12 +30,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 
-app.get('/', (req, res)=>{
-    res.send('Success Message')
+app.get("/", (req, res)=>{
+    res.send("Success Message")
 })
 
 
-app.post('/',(req, res) => {
+app.post("/",(req, res) => {
     const {phoneNumber, text, sessionId} = req.body;
     let response;
     let userResponse = text;
@@ -325,28 +325,28 @@ app.post('/',(req, res) => {
 
             }
         } else {
-            if(text===''){
-                response = 'CON Your Are Not Registered \n Enter Your Full Name ';
+            if(text===""){
+                response = "CON Your Are Not Registered \n Enter Your Full Name ";
             }
         
-            else if(text !==''){
-                let array = text.split('*');
+            else if(text !==""){
+                let array = text.split("*");
                 if(array.length === 1){
-                    response = 'CON Enter Your ID Number';
+                    response = "CON Enter Your ID Number";
                 }
         
                 else if(array.length === 2){
-                    response = 'CON Enter Your District Name'
+                    response = "CON Enter Your District Name"
                 }
         
                 else if(array.length === 3){
                    // Id Number
                    if(text !==""){
-                       response = 'CON  Please Confirm to save the data \n 1. Confirm \n 2. Cancel'; 
+                       response = "CON  Please Confirm to save the data \n 1. Confirm \n 2. Cancel"; 
                    }
         
                    else{
-                       response = 'END Network error. Please try again';
+                       response = "END Network error. Please try again";
                    }
                 }
                 else if(array.length === 4){ 
@@ -357,19 +357,19 @@ app.post('/',(req, res) => {
                         data.location = array[2];
                         data.phoneNumber = req.body.phoneNumber ;
                         data.save(()=>{
-                            response = 'END You Have Successfully Registered!'
+                            response = "END You Have Successfully Registered!"
                         })
         
                    }
                     else if(parseInt(array[2])===2){
-                        response = 'END Cancel, Your data is not saved'; 
+                        response = "END Cancel, Your data is not saved"; 
                    }
                    else{
-                       response = 'END Invalid Input';
+                       response = "END Invalid Input";
                    }
                 }
                 else{
-                    response = 'End Network error. Please try again';
+                    response = "End Network error. Please try again";
                 }
         
             }
@@ -385,7 +385,9 @@ app.post('/',(req, res) => {
 
 })
 //Checking The Application Port
+/*
 app.listen(PORT, () => {
-    console.log('app is running on port' + PORT)
+    console.log("app is running on port" + PORT);
 })
+*/
 
