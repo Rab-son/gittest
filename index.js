@@ -20,10 +20,10 @@ const db = mongoose.connection;
 //Checking Database Connection
 db.on("error", (err) => {
     console.log(err);
-})
+});
 db.once("open",() => {
     console.log("Database is running");
-})
+});
 
 //Body Parser
 app.use(bodyParser.json());
@@ -55,6 +55,8 @@ app.post("/",(req, res) => {
     }).then(user => {
         if (user) {
             if (user.phoneNumber !== req.body.phoneNumber) {
+                response = `END Your Are Not Registered`;
+
             } else {
  /*******************************************  MAIN MENU IMPLEMENTATION ( 1 and 2 levels)  ****************************************/       
         // Main Menu
@@ -336,7 +338,7 @@ app.post("/",(req, res) => {
                 }
         
                 else if(array.length === 2){
-                    response = "CON Enter Your District Name"
+                    response = "CON Enter Your District Name";
                 }
         
                 else if(array.length === 3){
@@ -357,7 +359,7 @@ app.post("/",(req, res) => {
                         data.location = array[2];
                         data.phoneNumber = req.body.phoneNumber ;
                         data.save(() => {
-                            response = "END You Have Successfully Registered!"
+                            response = "END You Have Successfully Registered!";
                         })
         
                    }
