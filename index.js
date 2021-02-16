@@ -13,16 +13,16 @@ const user = require("./model/user");
 
 
 //MongoDB Connection
-const database_url =  "mongodb://127.0.0.1:27017/ussd"
+const database_url =  'mongodb://127.0.0.1:27017/ussd';
 mongoose.connect(database_url);
 const db = mongoose.connection;
 
 //Checking Database Connection
-db.on("error", (err)=>{
-    console.log(err)
+db.on("error", (err) => {
+    console.log(err);
 })
-db.once("open",()=>{
-    console.log("Database is running")
+db.once("open",() => {
+    console.log("Database is running");
 })
 
 //Body Parser
@@ -30,8 +30,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 
-app.get("/", (req, res)=>{
-    res.send("Success Message")
+app.get("/", (req, res) => {
+    res.send("Success Message");
 })
 
 
@@ -356,7 +356,7 @@ app.post("/",(req, res) => {
                         data.nationalID = array[1];
                         data.location = array[2];
                         data.phoneNumber = req.body.phoneNumber ;
-                        data.save(()=>{
+                        data.save(() => {
                             response = "END You Have Successfully Registered!"
                         })
         
@@ -376,7 +376,7 @@ app.post("/",(req, res) => {
         }
         });
     
-    setTimeout(()=>{
+    setTimeout(() => {
         console.log(text);
         res.send(response);
         res.end();
